@@ -1,2 +1,55 @@
-# ganymed-ssh-2
-ganymed-ssh-2 forked from hudson/ganymed-ssh-2
+
+ÐÂÔöÁË·¢ËÍÃüÁî²¢»ñÈ¡½á¹û£¬·µ»ØÈÕÖ¾µÄ³ÌÐò
+
+```
+SSH2Client client = new SSH2Client(hostname, username, password);
+//  ÉèÖÃÄ¬ÈÏµÄµÇÂ¼Ä£Ê½£¬²»ÉèÖÃÊ±»á±ãÀû²âÊÔ
+client.setLoginMode(AbsSSH2Transport.LOGIN_MODE_KEYBOARD); 
+//  ³õÊ¼»¯¿Í»§¶Ë
+client.init();
+System.out.println("========================================");
+// ÉèÖÃÄ¬ÈÏµÄÈÕÖ¾´¦ÀíÆ÷
+client.setDefaultLogProcesser(new DebugLogProcess());
+
+//  Ö´ÐÐls
+client.newSession().exec("ls -a");
+
+//  Ö´ÐÐ ls -a ²¢»ñÈ¡½á¹û
+Result result = client.newSession().execResult("ls -a").syncResult();
+System.out.println("ls -a result: " + result.getContent());
+
+//  Òì²½Ö´ÐÐ
+client.newSession().execResult("ls -a")
+ .async(new Callable() {
+
+		public void call(Result result) {
+			System.out.println("ls -a result: " + result.getContent());
+		}
+
+	});
+System.out.println("=============end");
+```
+
+Ganymed SSH-2 for Java - build 260
+========================================
+
+http://www.cleondris.ch/opensource/ssh2/
+
+Ganymed SSH-2 for Java is a library which implements the SSH-2 protocol in pure Java
+(tested on J2SE 1.4.2, 5 and 6). It allows one to connect to SSH servers from within
+Java programs. It supports SSH sessions (remote command execution and shell access),
+local and remote port forwarding, local stream forwarding, X11 forwarding, SCP and SFTP.
+There are no dependencies on any JCE provider, as all crypto functionality is included.
+
+Ganymed SSH-2 for Java was originally developed for the Ganymed replication project
+and a couple of other projects at the IKS group at ETH Zurich (Switzerland).
+
+This distribution contains the source code, examples, javadoc and the FAQ.
+It also includes a pre-compiled jar version of the library which is ready to use.
+
+- Please read the included LICENCE.txt
+- Latest changes can be found in HISTORY.txt
+
+The latest version of the FAQ is available on the website.
+
+Zurich, August 2010
