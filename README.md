@@ -1,24 +1,24 @@
 
-ÐÂÔöÁË·¢ËÍÃüÁî²¢»ñÈ¡½á¹û£¬·µ»ØÈÕÖ¾µÄ³ÌÐò
+添加了发送命令获取结果以及日志的功能
 
 ```
 SSH2Client client = new SSH2Client(hostname, username, password);
-//  ÉèÖÃÄ¬ÈÏµÄµÇÂ¼Ä£Ê½£¬²»ÉèÖÃÊ±»á±ãÀû²âÊÔ
+//  设置默认的登录模式，不设置也可以
 client.setLoginMode(AbsSSH2Transport.LOGIN_MODE_KEYBOARD); 
-//  ³õÊ¼»¯¿Í»§¶Ë
+//  初始化
 client.init();
 System.out.println("========================================");
-// ÉèÖÃÄ¬ÈÏµÄÈÕÖ¾´¦ÀíÆ÷
+// 设置日志处理
 client.setDefaultLogProcesser(new DebugLogProcess());
 
-//  Ö´ÐÐls
+//  执行ls -a命令
 client.newSession().exec("ls -a");
 
-//  Ö´ÐÐ ls -a ²¢»ñÈ¡½á¹û
+//  获取ls -a结果
 Result result = client.newSession().execResult("ls -a").syncResult();
 System.out.println("ls -a result: " + result.getContent());
 
-//  Òì²½Ö´ÐÐ
+//  异步执行ls -a
 client.newSession().execResult("ls -a")
  .async(new Callable() {
 
